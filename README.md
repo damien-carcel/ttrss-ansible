@@ -16,6 +16,7 @@ My own ansible deployment scripts.
 - php: Install and configure PHP CLI (+ extensions), native 5.6 or 7.0 from added repository
 - composer: Install and configure composer
 - fpm: Install and configure PHP FPM (version 5.6 or 7.0)
+- nginx: Install and configure nginx according to PHP FPM settings
 
 # License
 

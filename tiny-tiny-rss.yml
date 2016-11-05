@@ -27,3 +27,4 @@
     - { role: php, become: true, tags: ['php'] }
     - { role: composer, become: true, tags: ['composer'] }
     - { role: fpm, become: true, tags: ['fpm'] }
+    - { role: nginx, become: true, tags: ['nginx'] }

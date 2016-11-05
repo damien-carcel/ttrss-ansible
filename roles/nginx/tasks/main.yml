@@ -1,0 +1,6 @@
+---
+- include: nginx-install.yml
+  tags: ['nginx-install']
+
+- include: nginx-config.yml
+  tags: ['nginx-config']
