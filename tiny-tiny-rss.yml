@@ -19,6 +19,9 @@
 - name: Tiny tiny RSS install
   hosts: ttrss
   remote_user: "{{ host_remote_user }}"
+  vars:
+    php_version: 7.0
   roles:
     - { role: debian-jessie, become: true, tags: ['debian-jessie'] }
     - { role: mysql, become: true, tags: ['mysql'] }
+    - { role: php, become: true, tags: ['php'] }

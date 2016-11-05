@@ -13,6 +13,7 @@ My own ansible deployment scripts.
 
 - debian-jessie: define repositories, set system up to date, add some useful packages and remove useless ones
 - mysql: Install and configure native MySQL 5.5
+- php: Install and configure PHP CLI (+ extensions), native 5.6 or 7.0 from added repository
 
 # License
 
