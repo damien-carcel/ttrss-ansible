@@ -21,3 +21,4 @@
   remote_user: "{{ host_remote_user }}"
   roles:
     - { role: debian-jessie, become: true, tags: ['debian-jessie'] }
+    - { role: mysql, become: true, tags: ['mysql'] }

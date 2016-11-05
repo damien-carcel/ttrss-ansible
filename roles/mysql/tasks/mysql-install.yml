@@ -1,0 +1,9 @@
+---
+- name: Install MySQL package
+  apt: name="{{ item }}"
+  with_items:
+    - python-mysqldb
+    - mysql-server
+
+- name: Enable MySQL server
+  service: name=mysql enabled=yes

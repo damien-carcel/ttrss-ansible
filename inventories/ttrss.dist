@@ -4,3 +4,4 @@ your.server.ip.address
 [ttrss:vars]
 host_ip_address=
 host_remote_user=
+mysql_root_password=

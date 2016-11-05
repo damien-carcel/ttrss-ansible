@@ -12,6 +12,7 @@ My own ansible deployment scripts.
 ## Roles
 
 - debian-jessie: define repositories, set system up to date, add some useful packages and remove useless ones
+- mysql: Install and configure native MySQL 5.5
 
 # License
 
