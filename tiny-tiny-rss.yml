@@ -26,3 +26,4 @@
     - { role: mysql, become: true, tags: ['mysql'] }
     - { role: php, become: true, tags: ['php'] }
     - { role: composer, become: true, tags: ['composer'] }
+    - { role: fpm, become: true, tags: ['fpm'] }

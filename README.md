@@ -15,6 +15,7 @@ My own ansible deployment scripts.
 - mysql: Install and configure native MySQL 5.5
 - php: Install and configure PHP CLI (+ extensions), native 5.6 or 7.0 from added repository
 - composer: Install and configure composer
+- fpm: Install and configure PHP FPM (version 5.6 or 7.0)
 
 # License
 
