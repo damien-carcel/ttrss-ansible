@@ -1,0 +1,23 @@
+---
+- name: Ansible prerequisites
+  hosts: ttrss
+  gather_facts: False
+  remote_user: "{{ host_remote_user }}"
+  become: true
+  tasks:
+    - name: Check if apt repo needs to be updated
+      raw: ls -1 /var/cache/apt/pkgcache.bin || true
+      register: apt_repo_cache
+
+    - name: Update repos
+      raw: apt-get update
+      when: apt_repo_cache.stdout_lines[0] != "/var/cache/apt/pkgcache.bin"
+
+    - name: Make sure python and deps are installed
+      raw: apt-get -y install python python-apt apt-utils python-requests
+
+- name: Tiny tiny RSS install
+  hosts: ttrss
+  remote_user: "{{ host_remote_user }}"
+  roles:
+    - { role: debian-jessie, become: true, tags: ['debian-jessie'] }
