@@ -5,3 +5,4 @@ your.server.ip.address
 host_ip_address=
 host_remote_user=
 mysql_root_password=
+composer_github_oauth=

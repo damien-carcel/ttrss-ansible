@@ -25,3 +25,4 @@
     - { role: debian-jessie, become: true, tags: ['debian-jessie'] }
     - { role: mysql, become: true, tags: ['mysql'] }
     - { role: php, become: true, tags: ['php'] }
+    - { role: composer, become: true, tags: ['composer'] }
