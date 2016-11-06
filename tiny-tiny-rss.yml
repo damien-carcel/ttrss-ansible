@@ -4,6 +4,7 @@
   gather_facts: False
   remote_user: "{{ host_remote_user }}"
   become: true
+  tags: ['prerequisites']
   tasks:
     - name: Check if apt repo needs to be updated
       raw: ls -1 /var/cache/apt/pkgcache.bin || true
