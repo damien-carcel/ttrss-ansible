@@ -5,4 +5,7 @@ your.server.ip.address
 host_ip_address=
 host_remote_user=
 mysql_root_password=
-composer_github_oauth=
+mysql_ttrss_database=
+mysql_ttrss_user=
+mysql_ttrss_password=
+ttrss_url=

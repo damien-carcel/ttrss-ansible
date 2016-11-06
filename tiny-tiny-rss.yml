@@ -25,6 +25,6 @@
     - { role: debian-jessie, become: true, tags: ['debian-jessie'] }
     - { role: mysql, become: true, tags: ['mysql'] }
     - { role: php, become: true, tags: ['php'] }
-    - { role: composer, become: true, tags: ['composer'] }
     - { role: fpm, become: true, tags: ['fpm'] }
     - { role: nginx, become: true, tags: ['nginx'] }
+    - { role: ttrss, become: true, tags: ['ttrss'] }

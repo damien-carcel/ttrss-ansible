@@ -1,0 +1,6 @@
+---
+- include: ttrss-install.yml
+  tags: ['ttrss-install']
+
+- include: ttrss-config.yml
+  tags: ['ttrss-config']

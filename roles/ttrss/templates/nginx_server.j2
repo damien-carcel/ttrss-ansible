@@ -1,0 +1,24 @@
+server {
+    listen      80;
+    server_name {{ ttrss_url }};
+    root        /home/{{ host_remote_user }}/ttrss;
+
+    location / {
+        index index.html index.htm index.php;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php{{ php_version }}-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi.conf;
+    }
+
+    error_page 500 502 503 504  /50x.html;
+
+    location = /50x.html {
+        root /home/{{ host_remote_user }}/ttrss;
+    }
+
+    error_log /var/log/nginx/ttrss_error.log;
+    access_log /var/log/nginx/ttrss_access.log;
+}
