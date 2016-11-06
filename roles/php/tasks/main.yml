@@ -1,0 +1,6 @@
+---
+- include: php-install.yml
+  tags: ['php-install']
+
+- include: php-config.yml
+  tags: ['php-config']

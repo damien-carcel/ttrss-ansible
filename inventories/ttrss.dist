@@ -1,0 +1,11 @@
+[ttrss]
+server_host_name_or_ip
+
+[ttrss:vars]
+host_ip_address=
+host_remote_user=
+mysql_root_password=
+mysql_ttrss_database=
+mysql_ttrss_user=
+mysql_ttrss_password=
+ttrss_url=

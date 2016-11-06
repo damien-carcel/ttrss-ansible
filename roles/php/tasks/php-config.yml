@@ -1,0 +1,10 @@
+---
+- name: Set PHP Path
+  set_fact:
+    php_path: "/etc/{{ (php_version is defined and php_version == 7.0) | ternary('php/7.0','php5') }}"
+
+- name: Setting up PHP CLI config
+  lineinfile: dest={{ php_path }}/cli/php.ini regexp="{{ item.regexp }}" line="{{ item.line }}"
+  with_items:
+    - { regexp: '^memory_limit', line: 'memory_limit = 1G' }
+    - { regexp: '^;?date\.timezone =', line: 'date.timezone = Europe/Paris' }

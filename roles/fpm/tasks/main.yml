@@ -1,0 +1,6 @@
+---
+- include: fpm-install.yml
+  tags: ['fpm-install']
+
+- include: fpm-config.yml
+  tags: ['fpm-config']

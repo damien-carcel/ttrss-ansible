@@ -1,0 +1,21 @@
+---
+- name: Set PHP Path
+  set_fact:
+    php_path: "/etc/{{ (php_version is defined and php_version == 7.0) | ternary('php/7.0','php5') }}"
+
+- name: Setting up PHP FPM config
+  lineinfile: dest={{ php_path }}/fpm/php.ini regexp="{{ item.regexp }}" line="{{ item.line }}"
+  with_items:
+    - { regexp: '^memory_limit', line: 'memory_limit = 512M' }
+    - { regexp: '^;?date\.timezone =', line: 'date.timezone = Europe/Paris' }
+
+
+- name: Setting up PHP FPM web config
+  lineinfile: dest={{ php_path }}/fpm/pool.d/www.conf regexp="{{ item.regexp }}" line="{{ item.line }}"
+  with_items:
+    - { regexp: '^user =', line: 'user = {{ host_remote_user }}' }
+    - { regexp: '^group =', line: 'group = {{ host_remote_user }}' }
+    - { regexp: '^listen\.owner =', line: 'listen.owner = {{ host_remote_user }}' }
+    - { regexp: '^listen\.group =', line: 'listen.group = {{ host_remote_user }}' }
+    - { regexp: '^listen =', line: 'listen = /run/php/php{{ php_version }}-fpm.sock' }
+  notify: Restart FPM

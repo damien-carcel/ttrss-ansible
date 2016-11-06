@@ -1,0 +1,15 @@
+---
+- name: Clone Tiny Tiny RSS repository
+  git: dest=/home/{{ host_remote_user }}/ttrss
+       repo=https://tt-rss.org/git/tt-rss.git
+       accept_hostkey=yes
+       force=yes
+  become: false
+
+- name: Configure nginx server
+  template: src=nginx_server.j2 dest=/etc/nginx/sites-available/ttrss
+  notify: Restart nginx
+
+- name: Enable nginx server
+  file: src=/etc/nginx/sites-available/ttrss dest=/etc/nginx/sites-enabled/ttrss state=link
+  notify: Restart nginx

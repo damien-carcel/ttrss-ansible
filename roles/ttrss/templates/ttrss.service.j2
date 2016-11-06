@@ -1,0 +1,10 @@
+[Unit]
+Description=ttrss
+After=network.target mysql.service
+
+[Service]
+User={{ host_remote_user }}
+ExecStart=/home/{{ host_remote_user }}/ttrss/update_daemon2.php
+
+[Install]
+WantedBy=multi-user.target
