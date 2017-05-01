@@ -1,0 +1,6 @@
+---
+- include: static-website-install.yml
+  tags: ['static-website-install']
+
+- include: static-website-config.yml
+  tags: ['static-website-config']

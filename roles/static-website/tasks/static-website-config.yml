@@ -1,0 +1,6 @@
+---
+- name: Update bower packages
+  bower:
+    path: "{{ static_website_destination_path }}"
+    state: latest
+  become: false

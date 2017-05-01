@@ -1,0 +1,13 @@
+[static-website]
+server_host_name_or_ip
+
+[static-website:vars]
+host_remote_user=
+static_website_url=
+static_website_git_repo=
+static_website_git_version=
+static_website_destination_path=
+static_website_server_path=
+static_website_htpassword_protected=
+static_website_htlogin=
+static_website_htpassword=

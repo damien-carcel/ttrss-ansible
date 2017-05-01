@@ -1,0 +1,6 @@
+---
+- include: npm-install.yml
+  tags: ['npm-install']
+
+- include: npm-packages.yml
+  tags: ['npm-packages']
