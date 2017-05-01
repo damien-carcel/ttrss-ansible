@@ -1,0 +1,41 @@
+---
+- name: Clone provided repository
+  git:
+    dest: "{{ static_website_destination_path }}"
+    repo: "{{ static_website_git_repo }}"
+    accept_hostkey: yes
+    force: yes
+    version: "{{ static_website_git_version }}"
+  become: false
+
+- name: Install some usefull packages
+  apt:
+    name: apache2-utils
+  when: static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true
+
+- name: Disable default server
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart nginx
+
+- name: Protect the website by htpassword
+  htpasswd:
+    path: "{{ static_website_destination_path }}/.htpassword"
+    name: "{{ static_website_htlogin }}"
+    password: "{{ static_website_htpassword }}"
+    owner: "{{ host_remote_user }}"
+    mode: 0640
+  when: static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true
+
+- name: Configure nginx server
+  template:
+    src: "{{ (static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true) | ternary('nginx_server_restricted.j2','nginx_server.j2') }}"
+    dest: "/etc/nginx/sites-available/{{ static_website_url }}"
+
+- name: Enable nginx server
+  file:
+    src: "/etc/nginx/sites-available/{{ static_website_url }}"
+    dest: "/etc/nginx/sites-enabled/{{ static_website_url }}"
+    state: link
+  notify: Restart nginx

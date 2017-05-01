@@ -1,0 +1,20 @@
+server {
+    listen      80;
+    server_name {{ static_website_url }};
+    root        {{ static_website_server_path }};
+
+    location / {
+        index index.html index.htm index.php;
+        auth_basic "Restricted Content";
+        auth_basic_user_file {{ static_website_destination_path }}/.htpassword;
+    }
+
+    error_page 500 502 503 504  /50x.html;
+
+    location = /50x.html {
+        root {{ static_website_server_path }};
+    }
+
+    error_log /var/log/nginx/{{ static_website_url }}_error.log;
+    access_log /var/log/nginx/{{ static_website_url }}_access.log;
+}
