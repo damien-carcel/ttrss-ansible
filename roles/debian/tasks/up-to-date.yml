@@ -2,8 +2,8 @@
 - name: Install apt-transport-https
   apt: name=apt-transport-https update_cache=yes
 
-- name: Set Debian Jessie repository
-  copy: src="debian_jessie_sources.list" dest="/etc/apt/sources.list" mode=0644 owner=root
+- name: Set Debian repository
+  copy: src="debian_sources.list" dest="/etc/apt/sources.list" mode=0644 owner=root
 
 - name: Upgrade all packages to the latest version
   apt: update_cache=yes upgrade=dist
@@ -22,5 +22,6 @@
 - name: Wait for the server after reboot
   wait_for:
     port: 22
-    delay: 10
+    delay: 30
   become: false
+  when: file.stat.exists == true

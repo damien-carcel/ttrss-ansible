@@ -1,6 +1,11 @@
 ---
-- include: composer-install.yml
-  tags: ['composer-install']
+- name: Install composer
+  script: roles/composer/scripts/install.sh
 
-- include: composer-config.yml
-  tags: ['composer-config']
+- name: Prepare composer directory
+  file: path=/home/{{ host_remote_user }}/.composer owner={{ host_remote_user }} state=directory
+  become: false
+
+- name: Set composer auth
+  template: src=composer_auth.json.j2 dest=/home/{{ host_remote_user }}/.composer/auth.json owner={{ host_remote_user }}
+  become: false

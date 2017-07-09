@@ -1,6 +1,31 @@
 ---
-- include: php-install.yml
-  tags: ['php-install']
+- name: Add PHP repository key
+  apt_key: url=https://packages.sury.org/php/apt.gpg state=present
 
-- include: php-config.yml
-  tags: ['php-config']
+- name: Add PHP repository
+  apt_repository: repo="deb https://packages.sury.org/php/ stretch main" state=present
+
+- name: Install PHP packages
+  apt: name={{ item }}
+  with_items:
+    - php7.1-apcu
+    - php7.1-cli
+    - php7.1-bcmath
+    - php7.1-curl
+    - php7.1-gd
+    - php7.1-intl
+    - php7.1-mbstring
+    - php7.1-mcrypt
+    - php7.1-mysql
+    - php7.1-soap
+    - php7.1-xml
+    - php7.1-zip
+
+- name: Set default PHP
+  alternatives: name=php path=/usr/bin/php7.1
+
+- name: Setting up PHP CLI config
+  lineinfile: dest=/etc/php/7.1/cli/php.ini regexp="{{ item.regexp }}" line="{{ item.line }}"
+  with_items:
+    - { regexp: '^memory_limit', line: 'memory_limit = 1G' }
+    - { regexp: '^;?date\.timezone =', line: 'date.timezone = Europe/Paris' }
