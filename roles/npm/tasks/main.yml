@@ -1,6 +1,15 @@
 ---
-- include: npm-install.yml
-  tags: ['npm-install']
+- name: Add NodeJS repository key
+  apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key state=present
 
-- include: npm-packages.yml
-  tags: ['npm-packages']
+- name: Add NodeJS official repository
+  apt_repository: repo="deb https://deb.nodesource.com/node_8.x stretch main" state=present
+
+- name: Install NodeJS and NPM packages
+  apt:
+    name: nodejs
+
+- name: Install "bower" globally
+  npm:
+    name: bower
+    global: yes

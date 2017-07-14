@@ -1,0 +1,59 @@
+---
+- name: Set Debian repository
+  copy: src="debian_sources.list" dest="/etc/apt/sources.list" mode=0644 owner=root
+
+- name: Install some usefull packages
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - cron
+    - curl
+    - git
+    - iputils-ping
+    - less
+    - logrotate
+    - man-db
+    - reboot-notifier
+    - rsync
+    - vim
+    - wget
+
+- name: Remove useless packages
+  apt: name={{ item }} purge=yes state=absent
+  with_items:
+    - at
+    - nano
+    - tasksel
+    - tasksel-data
+    - vim-tiny
+
+- name: Upgrade all packages to the latest version
+  apt: update_cache=yes upgrade=dist
+
+- name: Check if a reboot is required
+  register: file
+  stat: path=/var/run/reboot-required get_md5=no
+
+- name: Reboot the server
+  shell: sleep 2 && /sbin/reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: file.stat.exists == true
+
+- name: Wait for the server after reboot
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    port: 22
+    state: started
+    delay: 10
+    timeout: 180
+  connection: local
+  become: false
+  when: file.stat.exists == true
+
+- name: Clean the install
+  apt:
+    autoremove: yes
+    autoclean: yes

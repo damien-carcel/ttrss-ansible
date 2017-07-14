@@ -1,6 +1,0 @@
----
-- include: up-to-date.yml
-  tags: ['debian-up-to-date']
-
-- include: packages.yml
-  tags: ['debian-packages']

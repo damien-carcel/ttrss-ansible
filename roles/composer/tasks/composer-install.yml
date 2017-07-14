@@ -1,3 +1,0 @@
----
-- name: Install composer
-  script: roles/composer/scripts/install.sh

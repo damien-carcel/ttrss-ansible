@@ -1,6 +1,10 @@
 ---
-- include: nginx-install.yml
-  tags: ['nginx-install']
+- name: Install nginx
+  apt: name=nginx
 
-- include: nginx-config.yml
-  tags: ['nginx-config']
+- name: Enable nginx
+  service: name=nginx enabled=yes
+
+- name: Configure nginx user
+  lineinfile: dest=/etc/nginx/nginx.conf regexp="^user" line="user {{ host_remote_user }};"
+  notify: Restart nginx

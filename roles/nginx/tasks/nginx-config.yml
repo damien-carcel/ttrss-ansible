@@ -1,4 +1,0 @@
----
-- name: Configure nginx user
-  lineinfile: dest=/etc/nginx/nginx.conf regexp="^user" line="user {{ host_remote_user }};"
-  notify: Restart nginx

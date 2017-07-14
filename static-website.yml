@@ -21,7 +21,7 @@
   hosts: static-website
   remote_user: "{{ host_remote_user }}"
   roles:
-    - { role: debian-jessie, become: true, tags: ['debian-jessie'] }
+    - { role: debian, become: true, tags: ['debian'] }
     - { role: nginx, become: true, tags: ['nginx'] }
     - { role: npm, become: true, tags: ['npm'] }
     - { role: static-website, become: true, tags: ['static-website'] }
