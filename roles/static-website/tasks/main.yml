@@ -9,7 +9,7 @@
   become: false
   notify: Restart nginx
 
-- name: Install some usefull packages
+- name: Install utility programs for webservers
   apt:
     name: apache2-utils
   when: static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true
@@ -48,8 +48,14 @@
     state: link
   notify: Restart nginx
 
-- name: Update bower packages
-  bower:
-    path: "{{ static_website_destination_path }}"
-    state: latest
+- name: Install application dependencies
+  command: npm install
+  args:
+    chdir: "{{ static_website_destination_path }}"
+  become: false
+
+- name: Build application
+  command: npm run {{ static_website_build_command }}
+  args:
+    chdir: "{{ static_website_destination_path }}"
   become: false
