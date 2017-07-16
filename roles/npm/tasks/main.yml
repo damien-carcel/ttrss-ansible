@@ -8,8 +8,3 @@
 - name: Install NodeJS and NPM packages
   apt:
     name: nodejs
-
-- name: Install "bower" globally
-  npm:
-    name: bower
-    global: yes

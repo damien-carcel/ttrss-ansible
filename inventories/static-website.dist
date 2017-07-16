@@ -11,3 +11,4 @@ static_website_server_path=
 static_website_htpassword_protected=
 static_website_htlogin=
 static_website_htpassword=
+static_website_build_command=
