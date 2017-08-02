@@ -52,10 +52,19 @@
   command: npm install
   args:
     chdir: "{{ static_website_destination_path }}"
+  when: static_website_build_command is defined and (static_website_dependencies_prod_only is undefined or static_website_dependencies_prod_only|bool == false)
+  become: false
+
+- name: Install application production only dependencies
+  command: npm install --only=prod
+  args:
+    chdir: "{{ static_website_destination_path }}"
+  when: static_website_build_command is defined and static_website_dependencies_prod_only is defined and static_website_dependencies_prod_only|bool == true
   become: false
 
 - name: Build application
   command: npm run {{ static_website_build_command }}
   args:
     chdir: "{{ static_website_destination_path }}"
+  when: static_website_build_command is defined and static_website_build_command != 'none'
   become: false

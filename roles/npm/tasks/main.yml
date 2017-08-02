@@ -5,6 +5,6 @@
 - name: Add NodeJS official repository
   apt_repository: repo="deb https://deb.nodesource.com/node_8.x stretch main" state=present
 
-- name: Install NodeJS and NPM packages
+- name: Install NodeJS and NPM
   apt:
     name: nodejs
