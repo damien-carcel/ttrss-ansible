@@ -1,14 +1,4 @@
 ---
-- name: Clone provided repository
-  git:
-    dest: "{{ static_website_destination_path }}"
-    repo: "{{ static_website_git_repo }}"
-    accept_hostkey: yes
-    force: yes
-    version: "{{ static_website_git_version }}"
-  become: false
-  notify: Restart nginx
-
 - name: Install utility programs for webservers
   apt:
     name: apache2-utils
@@ -25,6 +15,16 @@
     name: python-passlib
   when: static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true
 
+- name: Clone provided repository
+  git:
+    dest: "{{ static_website_destination_path }}"
+    repo: "{{ static_website_git_repo }}"
+    accept_hostkey: yes
+    force: yes
+    version: "{{ static_website_git_version }}"
+  become: false
+  notify: Restart nginx
+
 - name: Protect the website by htpassword
   htpasswd:
     path: "{{ static_website_destination_path }}/.htpassword"
@@ -34,18 +34,6 @@
     group: "{{ host_remote_user }}"
     mode: 0640
   when: static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true
-  notify: Restart nginx
-
-- name: Configure nginx server
-  template:
-    src: "{{ (static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true) | ternary('nginx_server_restricted.j2','nginx_server.j2') }}"
-    dest: "/etc/nginx/sites-available/{{ static_website_url }}"
-
-- name: Enable nginx server
-  file:
-    src: "/etc/nginx/sites-available/{{ static_website_url }}"
-    dest: "/etc/nginx/sites-enabled/{{ static_website_url }}"
-    state: link
   notify: Restart nginx
 
 - name: Install application dependencies
@@ -68,3 +56,15 @@
     chdir: "{{ static_website_destination_path }}"
   when: static_website_build_command is defined and static_website_build_command != 'none'
   become: false
+
+- name: Configure nginx server
+  template:
+    src: "{{ (static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true) | ternary('nginx_server_restricted.j2','nginx_server.j2') }}"
+    dest: "/etc/nginx/sites-available/{{ static_website_url }}"
+
+- name: Enable nginx server
+  file:
+    src: "/etc/nginx/sites-available/{{ static_website_url }}"
+    dest: "/etc/nginx/sites-enabled/{{ static_website_url }}"
+    state: link
+  notify: Restart nginx
