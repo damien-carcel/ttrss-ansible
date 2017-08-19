@@ -23,14 +23,16 @@ One must ensure the following packages are installed on the remote machine, or A
 
 ## Roles
 
-- `debian-jessie`: define repositories, set system up to date, add some useful packages and remove useless ones
-- `mysql`: Install and configure native MySQL 5.5
-- `php`: Install and configure PHP CLI (+ extensions), native 5.6 or 7.0 from added repository
-- `composer`: Install and configure composer
-- `fpm`: Install and configure PHP FPM (version 5.6 or 7.0)
+- `debian`: Define repositories, set system up to date, add some useful packages and remove useless ones
+- `mysql`: Install and configure native MySQL 5.7
+- `php`: Install and configure PHP 7.1 from Ondřej Surý repository
+- `composer`: Install and configure Composer package manager
+- `fpm`: Install and configure PHP FPM (version 7.1)
 - `nginx`: Install and configure nginx
+- `npm`: Install and configure NodeJS and NPM package manager
+- `yarn`: Install Yarn package manager
 - `ttrss`: Install and prepare Tiny Tiny RSS (to use with nginx, PHP-FPM and MySQL)
-- `static-website`: Install and configure a simple static website from its git repository (to use with nginx)
+- `static-website`: Install and configure an HTML5 website from its git repository (to use with nginx)
 
 # License
 
