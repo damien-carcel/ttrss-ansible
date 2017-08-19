@@ -36,14 +36,14 @@
   when: static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true
   notify: Restart nginx
 
-- name: Install application dependencies
-  command: npm install
+- name: Install application dependencies with Yarn
+  command: yarn install
   args:
     chdir: "{{ static_website_destination_path }}"
   when: static_website_build_command is defined and (static_website_dependencies_prod_only is undefined or static_website_dependencies_prod_only|bool == false)
   become: false
 
-- name: Install application production only dependencies
+- name: Install application production only dependencies with NPM
   command: npm install --only=prod
   args:
     chdir: "{{ static_website_destination_path }}"

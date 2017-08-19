@@ -6,4 +6,5 @@
     - { role: debian, become: true, tags: ['debian'] }
     - { role: nginx, become: true, tags: ['nginx'] }
     - { role: npm, become: true, tags: ['npm'] }
+    - { role: yarn, become: true, tags: ['yarn'] }
     - { role: static-website, become: true, tags: ['static-website'] }
