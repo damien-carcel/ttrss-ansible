@@ -9,3 +9,4 @@
     - { role: fpm, become: true, tags: ['fpm'] }
     - { role: nginx, become: true, tags: ['nginx'] }
     - { role: ttrss, become: true, tags: ['ttrss'] }
+    - { role: https, become: true, when: secured_server is defined and secured_server, tags: ['https'] }

@@ -33,6 +33,7 @@ One must ensure the following packages are installed on the remote machine, or A
 - `yarn`: Install Yarn package manager
 - `ttrss`: Install and prepare Tiny Tiny RSS (to use with nginx, PHP-FPM and MySQL)
 - `static-website`: Install and configure an HTML5 website from its git repository (to use with nginx)
+- `https`: Secure a URL through Let's Encrypt
 
 # License
 

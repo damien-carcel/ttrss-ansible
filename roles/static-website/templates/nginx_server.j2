@@ -1,6 +1,6 @@
 server {
     listen      80;
-    server_name {{ static_website_url }};
+    server_name {{ website_url }};
     root        {{ static_website_server_path }};
 
     location / {
@@ -13,6 +13,6 @@ server {
         root {{ static_website_server_path }};
     }
 
-    error_log /var/log/nginx/{{ static_website_url }}_error.log;
-    access_log /var/log/nginx/{{ static_website_url }}_access.log;
+    error_log /var/log/nginx/{{ website_url }}_error.log;
+    access_log /var/log/nginx/{{ website_url }}_access.log;
 }

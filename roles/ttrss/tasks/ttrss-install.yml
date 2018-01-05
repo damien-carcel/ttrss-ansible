@@ -13,8 +13,8 @@
   notify: Restart nginx
 
 - name: Configure nginx server
-  template: src=nginx_server.j2 dest=/etc/nginx/sites-available/ttrss
+  template: src=nginx_server.j2 dest=/etc/nginx/sites-available/{{ website_url }}
 
 - name: Enable nginx server
-  file: src=/etc/nginx/sites-available/ttrss dest=/etc/nginx/sites-enabled/ttrss state=link
+  file: src=/etc/nginx/sites-available/{{ website_url }} dest=/etc/nginx/sites-enabled/{{ website_url }} state=link
   notify: Restart nginx

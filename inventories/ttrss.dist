@@ -3,8 +3,9 @@ server_host_name_or_ip
 
 [ttrss:vars]
 host_remote_user=
+website_url=
+secured_server=true|false
 mysql_root_password=
 mysql_ttrss_database=
 mysql_ttrss_user=
 mysql_ttrss_password=
-ttrss_url=
