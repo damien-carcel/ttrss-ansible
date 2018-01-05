@@ -3,7 +3,8 @@ server_host_name_or_ip
 
 [static-website:vars]
 host_remote_user=
-static_website_url=
+website_url=
+secured_server=true|false
 static_website_git_repo=
 static_website_git_version=
 static_website_destination_path=

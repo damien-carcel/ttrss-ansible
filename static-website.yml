@@ -8,3 +8,4 @@
     - { role: npm, become: true, tags: ['npm'] }
     - { role: yarn, become: true, tags: ['yarn'] }
     - { role: static-website, become: true, tags: ['static-website'] }
+    - { role: https, become: true, when: secured_server is defined and secured_server, tags: ['https'] }

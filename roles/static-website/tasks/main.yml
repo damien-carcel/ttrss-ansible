@@ -60,11 +60,11 @@
 - name: Configure nginx server
   template:
     src: "{{ (static_website_htpassword_protected is defined and static_website_htpassword_protected|bool == true) | ternary('nginx_server_restricted.j2','nginx_server.j2') }}"
-    dest: "/etc/nginx/sites-available/{{ static_website_url }}"
+    dest: "/etc/nginx/sites-available/{{ website_url }}"
 
 - name: Enable nginx server
   file:
-    src: "/etc/nginx/sites-available/{{ static_website_url }}"
-    dest: "/etc/nginx/sites-enabled/{{ static_website_url }}"
+    src: "/etc/nginx/sites-available/{{ website_url }}"
+    dest: "/etc/nginx/sites-enabled/{{ website_url }}"
     state: link
   notify: Restart nginx

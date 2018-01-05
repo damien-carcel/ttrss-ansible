@@ -1,0 +1,13 @@
+---
+- name: Add Debian Stretch "backport" repository
+  apt_repository:
+    repo: "deb http://ftp.fr.debian.org/debian stretch-backports main"
+    state: present
+
+- name: Install Certbot from "squeeze-backport"
+  apt:
+    name: python-certbot-nginx
+    default_release: stretch-backports
+
+- name: Configure Let's Encrypt for nginx server
+  command: certbot -n --nginx -d {{ website_url }} --agree-tos -m damien.carcel@gmail.com

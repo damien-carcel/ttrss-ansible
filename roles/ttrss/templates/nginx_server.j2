@@ -1,6 +1,6 @@
 server {
     listen      80;
-    server_name {{ ttrss_url }};
+    server_name {{ website_url }};
     root        /home/{{ host_remote_user }}/ttrss;
 
     location / {
@@ -19,6 +19,6 @@ server {
         root /home/{{ host_remote_user }}/ttrss;
     }
 
-    error_log /var/log/nginx/ttrss_error.log;
-    access_log /var/log/nginx/ttrss_access.log;
+    error_log /var/log/nginx/{{ website_url }}_error.log;
+    access_log /var/log/nginx/{{ website_url }}_access.log;
 }
