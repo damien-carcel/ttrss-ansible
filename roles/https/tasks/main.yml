@@ -10,4 +10,4 @@
     default_release: stretch-backports
 
 - name: Configure Let's Encrypt for nginx server
-  command: certbot -n --nginx -d {{ website_url }} --agree-tos -m damien.carcel@gmail.com
+  command: certbot -n --nginx -d {{ website_url }} --agree-tos --redirect -m damien.carcel@gmail.com
