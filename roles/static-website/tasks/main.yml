@@ -51,7 +51,7 @@
   become: false
 
 - name: Build application
-  command: npm run {{ static_website_build_command }}
+  command: "npm run {{ static_website_build_command }}"
   args:
     chdir: "{{ static_website_destination_path }}"
   when: static_website_build_command is defined and static_website_build_command != 'none'

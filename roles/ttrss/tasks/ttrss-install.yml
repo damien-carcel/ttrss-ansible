@@ -1,9 +1,10 @@
 ---
 - name: Clone Tiny Tiny RSS repository
-  git: dest=/home/{{ host_remote_user }}/ttrss
-       repo=https://tt-rss.org/git/tt-rss.git
-       accept_hostkey=yes
-       force=yes
+  git:
+    dest: /home/{{ host_remote_user }}/ttrss
+    repo: https://tt-rss.org/git/tt-rss.git
+    accept_hostkey: yes
+    force: yes
   become: false
 
 - name: Disable default server
@@ -13,8 +14,13 @@
   notify: Restart nginx
 
 - name: Configure nginx server
-  template: src=nginx_server.j2 dest=/etc/nginx/sites-available/{{ website_url }}
+  template:
+    src: nginx_server.j2
+    dest: /etc/nginx/sites-available/{{ website_url }}
 
 - name: Enable nginx server
-  file: src=/etc/nginx/sites-available/{{ website_url }} dest=/etc/nginx/sites-enabled/{{ website_url }} state=link
+  file:
+    src: /etc/nginx/sites-available/{{ website_url }}
+    dest: /etc/nginx/sites-enabled/{{ website_url }}
+    state: link
   notify: Restart nginx

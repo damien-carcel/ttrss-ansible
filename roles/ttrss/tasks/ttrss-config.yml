@@ -3,28 +3,35 @@
   meta: flush_handlers
 
 - name: Create TTRSS database if none
-  mysql_db: name={{ mysql_ttrss_database }}
-            login_user=root
-            login_password={{ mysql_root_password }}
-            state=present
+  mysql_db:
+    name: "{{ mysql_ttrss_database }}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: present
   register: create_mysql_database
 
 - name: Configure user and password for TTRSS table
-  mysql_user: name={{ mysql_ttrss_user }}
-              password={{ mysql_ttrss_password }}
-              priv={{ mysql_ttrss_database }}.*:ALL,GRANT
-              login_user=root
-              login_password={{ mysql_root_password }}
-              state=present
+  mysql_user:
+    name: "{{ mysql_ttrss_user }}"
+    password: "{{ mysql_ttrss_password }}"
+    priv: "{{ mysql_ttrss_database }}.*:ALL,GRANT"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: present
   register: create_mysql_user
 
 - name: Wait for TTRSS to be configured
-  wait_for: path=/home/{{ host_remote_user }}/ttrss/config.php
-  when: create_mysql_database|changed or create_mysql_user|changed
+  wait_for:
+    path: "/home/{{ host_remote_user }}/ttrss/config.php"
+  when: create_mysql_database is changed or create_mysql_user is changed
 
 - name: Create feeds update service
-  template: src=ttrss.service.j2 dest=/etc/systemd/system/ttrss.service
+  template:
+    src: ttrss.service.j2
+    dest: /etc/systemd/system/ttrss.service
   notify: Restart ttrss daemon
 
 - name: Enable feeds update service
-  service: name=ttrss enabled=yes
+  service:
+    name: ttrss
+    enabled: yes
