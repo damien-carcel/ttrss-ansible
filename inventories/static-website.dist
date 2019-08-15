@@ -1,7 +1,7 @@
-[static-website]
+[static]
 server_host_name_or_ip
 
-[static-website:vars]
+[static:vars]
 host_remote_user=
 website_url=
 secured_server=true|false
