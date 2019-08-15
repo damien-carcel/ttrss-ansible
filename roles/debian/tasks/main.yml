@@ -13,17 +13,16 @@
   vars:
     packages:
       - apt-transport-https
+      - bash-completion
       - bzip2
       - ca-certificates
-      - cron
       - curl
-      - git
+      - gnupg2
       - iputils-ping
       - less
       - logrotate
-      - man-db
       - reboot-notifier
-      - rsync
+      - software-properties-common
       - vim
       - wget
 

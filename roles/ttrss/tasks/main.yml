@@ -1,6 +1,0 @@
----
-- import_tasks: ttrss-install.yml
-  tags: ['ttrss-install']
-
-- import_tasks: ttrss-config.yml
-  tags: ['ttrss-config']

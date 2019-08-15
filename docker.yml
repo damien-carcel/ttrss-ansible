@@ -1,0 +1,7 @@
+---
+- name: Static website install
+  hosts: static
+  remote_user: "{{ host_remote_user }}"
+  roles:
+    - { role: debian, become: true, tags: ['debian'] }
+    - { role: docker, become: true, tags: ['docker'] }

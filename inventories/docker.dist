@@ -1,0 +1,5 @@
+[static]
+server_host_name_or_ip
+
+[static:vars]
+host_remote_user=
