@@ -5,3 +5,4 @@
   roles:
     - { role: debian, become: true, tags: ['debian'] }
     - { role: docker, become: true, tags: ['docker'] }
+    - { role: traefik, become: true, tags: ['traefik'] }

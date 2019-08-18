@@ -14,7 +14,8 @@ Those playbooks and roles are to be used only with Debian 10 (Buster).
 ## Roles
 
 - `debian`: Define repositories, set system up to date, add some useful packages and remove useless ones
-- `docker`: Install and configure Docker in `swarm` mode
+- `docker`: Install and configure Docker
+- `traefik`: Install and configure Traefik reverse proxy through Docker
 
 # License
 

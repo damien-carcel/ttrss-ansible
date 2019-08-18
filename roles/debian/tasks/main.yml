@@ -6,7 +6,7 @@
     mode: 0644
     owner: root
 
-- name: Install some usefull packages
+- name: Install some mandatory packages
   apt:
     name: "{{ packages }}"
     update_cache: yes

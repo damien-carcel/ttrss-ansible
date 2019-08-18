@@ -3,3 +3,5 @@ server_host_name_or_ip
 
 [static:vars]
 host_remote_user=
+domain_url=
+proxy_network=

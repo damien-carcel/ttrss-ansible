@@ -1,0 +1,14 @@
+defaultEntryPoints = ["http"]
+
+[web]
+address = ":8080"
+
+[docker]
+domain = "{{ domain_url }}"
+endpoint = "unix:///var/run/docker.sock"
+network = "{{ proxy_network }}"
+watch = true
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"

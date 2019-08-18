@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  traefik:
+    image: 'traefik:alpine'
+    networks:
+      - {{ proxy_network }}
+    ports:
+      - '80:80'
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './traefik.toml:/traefik.toml:ro'
+
+networks:
+  {{ proxy_network }}:
+    external: true
