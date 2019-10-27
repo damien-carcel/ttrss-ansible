@@ -25,6 +25,13 @@
     path: "/home/{{ host_remote_user }}/ttrss/config.php"
   when: create_mysql_database is changed or create_mysql_user is changed
 
+- name: Increase TTRSS session lifetime to 30 days
+  replace:
+    path: "/home/{{ host_remote_user }}/ttrss/config.php"
+    regexp: '86400'
+    replace: '86400*30'
+    backup: yes
+
 - name: Create feeds update service
   template:
     src: ttrss.service.j2
