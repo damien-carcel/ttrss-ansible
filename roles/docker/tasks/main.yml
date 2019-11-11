@@ -22,7 +22,7 @@
     repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
     state: present
 
-- name: Install Docker and python-docker
+- name: Install Docker and needed python libraries
   apt:
     name: "{{ packages }}"
     update_cache: yes
@@ -32,6 +32,7 @@
       - docker-ce-cli
       - containerd.io
       - python3-docker
+      - python3-pip
 
 - name: Enable service "docker"
   systemd:
@@ -49,7 +50,5 @@
     group: docker
 
 - name: Install Docker Compose
-  get_url:
-    url: https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64
-    dest: /usr/local/bin/docker-compose
-    mode: '0755'
+  pip:
+    name: "docker-compose"

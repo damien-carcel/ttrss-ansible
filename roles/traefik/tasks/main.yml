@@ -1,4 +1,8 @@
 ---
+- name: Create the proxy network
+  docker_network:
+    name: "{{ proxy_network }}"
+
 - name: Create Traefik configuration directory
   file:
     path: /srv/docker
@@ -7,8 +11,8 @@
 
 - name: Copy Traefik configuration
   template:
-    src: traefik.toml.j2
-    dest: /srv/docker/traefik.toml
+    src: traefik.yaml.j2
+    dest: /srv/docker/traefik.yaml
     mode: 0644
     owner: root
 
@@ -19,20 +23,8 @@
     mode: 0644
     owner: root
 
-- name: Copy Traefik SystemD service file
-  copy:
-    src: docker-compose-traefik.service
-    dest: /etc/systemd/system/docker-compose-traefik.service
-    mode: 0644
-    owner: root
-
-- name: Create the proxy network
-  docker_network:
-    name: "{{ proxy_network }}"
-
-- name: Enable and start Traefik as a SystemD service
-  systemd:
-    name: docker-compose-traefik.service
-    daemon_reload: yes
-    enabled: yes
-    state: started
+- name: Pull and start Traefik
+  docker_compose:
+    project_src: /srv/docker
+    state: present
+    pull: yes

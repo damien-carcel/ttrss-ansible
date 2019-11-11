@@ -2,7 +2,8 @@ version: '3.4'
 
 services:
   traefik:
-    image: 'traefik:alpine'
+    image: 'traefik:montdor-alpine'
+    restart: 'always'
     networks:
       - {{ proxy_network }}
     ports:
@@ -10,7 +11,7 @@ services:
     restart: always
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - './traefik.toml:/traefik.toml:ro'
+      - './traefik.yaml:/etc/traefik/traefik.yaml:ro'
 
 networks:
   {{ proxy_network }}:
