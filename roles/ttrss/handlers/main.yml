@@ -4,9 +4,3 @@
     name: nginx
     state: restarted
   become: true
-
-- name: Restart ttrss daemon
-  service:
-    name: ttrss
-    state: restarted
-  become: true
