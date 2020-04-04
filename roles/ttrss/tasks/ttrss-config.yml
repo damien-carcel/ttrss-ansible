@@ -36,9 +36,9 @@
   template:
     src: ttrss.service.j2
     dest: /etc/systemd/system/ttrss.service
-  notify: Restart ttrss daemon
 
-- name: Enable feeds update service
+- name: Enable and start feeds update service
   service:
     name: ttrss
     enabled: yes
+    state: restarted
