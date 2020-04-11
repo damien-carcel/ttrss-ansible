@@ -23,14 +23,6 @@
     state: absent
   notify: Restart nginx
 
-- name: Copy HTML dummy page
-  copy:
-    src: index.html
-    dest: /home/{{ host_remote_user }}/homepage/index.html
-    mode: 0644
-    owner: "{{ host_remote_user }}"
-  notify: Restart nginx
-
 - name: Configure base domain nginx server
   template:
     src: nginx_server.j2
@@ -41,18 +33,5 @@
   file:
     src: "/etc/nginx/sites-available/{{ base_url }}"
     dest: "/etc/nginx/sites-enabled/{{ base_url }}"
-    state: link
-  notify: Restart nginx
-
-- name: Configure "www" sub-domain nginx server
-  template:
-    src: www_nginx_server.j2
-    dest: /etc/nginx/sites-available/{{ website_url }}
-  notify: Restart nginx
-
-- name: Enable "www" sub-domain nginx server
-  file:
-    src: "/etc/nginx/sites-available/{{ website_url }}"
-    dest: "/etc/nginx/sites-enabled/{{ website_url }}"
     state: link
   notify: Restart nginx
