@@ -4,6 +4,7 @@ server_host_name_or_ip
 [ttrss:vars]
 host_remote_user=
 base_url=
+redirect_to=
 mysql_root_password=
 mysql_ttrss_database=
 mysql_ttrss_user=
