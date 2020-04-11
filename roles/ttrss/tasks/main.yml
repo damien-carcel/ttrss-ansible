@@ -1,4 +1,6 @@
 ---
+- set_fact: website_url="ttrss.{{ base_url }}"
+
 - import_tasks: ttrss-install.yml
   tags: ['ttrss-install']
 

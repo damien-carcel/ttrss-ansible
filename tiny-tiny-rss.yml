@@ -5,8 +5,6 @@
   roles:
     - { role: debian, become: true, tags: ['debian'] }
     - { role: mysql, become: true, tags: ['mysql'] }
-    - { role: php, become: true, tags: ['php'] }
     - { role: fpm, become: true, tags: ['fpm'] }
     - { role: nginx, become: true, tags: ['nginx'] }
     - { role: ttrss, become: true, tags: ['ttrss'] }
-    - { role: https, become: true, when: secured_server is defined and secured_server, tags: ['https'] }
