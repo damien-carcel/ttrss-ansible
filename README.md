@@ -1,6 +1,4 @@
-# Ansible
-
-My own ansible deployment scripts.
+# Deploying Tiny Tiny RSS with Ansible
 
 ## Prerequisites
 
@@ -12,29 +10,23 @@ One must ensure the following packages are installed on the remote machine, or A
 - python-apt 
 - python-requests
 
-## Playbooks:
-  
-- **`tiny-tiny-rss.yml`: Install Tiny Tiny RSS**<br />
-  This playbook allow the install and configuration of all Tiny Tiny RSS dependencies, but does not configure Tiny Tiny RSS itself.
-  This is done at first launch, or by backup/restore scripts (which are not in this repository).
-- **`static-website.yml`: Install a static HTML + JavaScript application**<br />
-  This playbook install a simple, static web site requiring only nginx to run.
-  The web site is installed into the remote user home folder, into a designated subfolder.
+## Deploy
 
-## Roles
+From your machine:
+```bash
+$ ansible-playbook -i inventories/provider/ttrss tiny-tiny-rss.yml -t debian
+```
 
-- `debian`: Define repositories, set system up to date, add some useful packages and remove useless ones
-- `mysql`: Install and configure native MySQL 5.7
-- `php`: Install and configure PHP 7.1 from Ondřej Surý repository
-- `composer`: Install and configure Composer package manager
-- `fpm`: Install and configure PHP FPM (version 7.1)
-- `nginx`: Install and configure nginx
-- `npm`: Install and configure NodeJS and NPM package manager
-- `yarn`: Install Yarn package manager
-- `ttrss`: Install and prepare Tiny Tiny RSS (to use with nginx, PHP-FPM and MySQL)
-- `static`: Install and configure an HTML5 website from its git repository (to use with nginx)
-- `https`: Secure a URL through Let's Encrypt
+Then on the server:
+```bash
+$ sudo certbot certonly --manual -d example.com -d *.example.com --agree-tos --no-bootstrap --manual-public-ip-logging-ok --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory --email you@email.com
+```
 
-# License
+Finally from your machine again:
+```bash
+$ ansible-playbook -i inventories/provider/ttrss tiny-tiny-rss.yml
+```
+
+## License
 
 This repository is under the MIT license. See the complete license in the `LICENSE` file.

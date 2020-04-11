@@ -7,18 +7,13 @@
     force: yes
   become: false
 
-- name: Disable default server
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-  notify: Restart nginx
-
-- name: Configure nginx server
+- name: Configure TTRSS nginx server
   template:
     src: nginx_server.j2
     dest: /etc/nginx/sites-available/{{ website_url }}
+  notify: Restart nginx
 
-- name: Enable nginx server
+- name: Enable TTRSS nginx server
   file:
     src: /etc/nginx/sites-available/{{ website_url }}
     dest: /etc/nginx/sites-enabled/{{ website_url }}

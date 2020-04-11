@@ -1,22 +1,16 @@
 server {
     listen 443 ssl http2;
     server_name {{ website_url }};
-    root        /home/{{ host_remote_user }}/ttrss;
+    root        /home/{{ host_remote_user }}/homepage;
 
     location / {
-        index index.html index.htm index.php;
-    }
-
-    location ~ \.php$ {
-        fastcgi_pass unix:/run/php/php7.1-fpm.sock;
-        fastcgi_index index.php;
-        include fastcgi.conf;
+        index index.html;
     }
 
     error_page 500 502 503 504  /50x.html;
 
     location = /50x.html {
-        root /home/{{ host_remote_user }}/ttrss;
+        root /home/{{ host_remote_user }}/homepage;
     }
 
     error_log /var/log/nginx/{{ website_url }}_error.log;

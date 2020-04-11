@@ -1,0 +1,32 @@
+server {
+    listen 443 ssl http2;
+    server_name {{ base_url }};
+    root        /home/{{ host_remote_user }}/homepage;
+
+    location / {
+        index index.html;
+    }
+
+    error_page 500 502 503 504  /50x.html;
+
+    location = /50x.html {
+        root /home/{{ host_remote_user }}/homepage;
+    }
+
+    error_log /var/log/nginx/{{ base_url }}_error.log;
+    access_log /var/log/nginx/{{ base_url }}_access.log;
+
+    ssl_certificate /etc/letsencrypt/live/{{ base_url }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ base_url }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ base_url }}/fullchain.pem;
+}
+
+server {
+    if ($host = {{ base_url }}) {
+        return 301 https://$host$request_uri;
+    }
+
+    server_name {{ base_url }};
+    listen 80;
+    return 404;
+}
