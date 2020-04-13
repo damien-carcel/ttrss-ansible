@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Those playbooks and roles are to be used only with Debian 9 (Stretch).
+Those playbooks and roles are to be used only with Debian 10 (buster).
 
 One must ensure the following packages are installed on the remote machine, or Ansible will not work:
 - apt-utils

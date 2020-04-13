@@ -4,7 +4,8 @@
   remote_user: "{{ host_remote_user }}"
   roles:
     - { role: debian, become: true, tags: ['debian'] }
-    - { role: mysql, become: true, tags: ['mysql'] }
-    - { role: fpm, become: true, tags: ['fpm'] }
     - { role: nginx, become: true, tags: ['nginx'] }
+    - { role: docker, become: true, tags: ['docker'] }
+#     Traefik could eventually replace nginx
+#   - { role: traefik, become: true, tags: ['traefik'] }
     - { role: ttrss, become: true, tags: ['ttrss'] }
