@@ -1,0 +1,56 @@
+---
+- name: Remove previous versions of Docker
+  apt:
+    name: "{{ packages }}"
+    purge: yes
+    state: absent
+  vars:
+    packages:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+
+- name: Set Docker repository GPG key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add Docker official repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+    state: present
+
+- name: Install Docker and needed python libraries
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - python3-docker
+      - python3-pip
+
+- name: Enable service "docker"
+  systemd:
+    name: docker
+    enabled: yes
+    state: restarted
+
+- name: Ensure group "docker" exists
+  group:
+    name: docker
+    state: present
+
+- name: Add the remote user to the group "docker"
+  user:
+    name: "{{ host_remote_user }}"
+    group: docker
+
+- name: Install Docker Compose
+  pip:
+    name: docker-compose
+    executable: pip3

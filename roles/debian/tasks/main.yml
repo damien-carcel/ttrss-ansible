@@ -6,7 +6,7 @@
     mode: 0644
     owner: root
 
-- name: Install some usefull packages
+- name: Install some mandatory packages
   apt:
     name: "{{ packages }}"
     update_cache: yes
@@ -15,15 +15,18 @@
       - apt-transport-https
       - bzip2
       - ca-certificates
+      - certbot
       - cron
       - curl
       - git
+      - gnupg2
       - iputils-ping
       - less
       - logrotate
       - man-db
       - reboot-notifier
       - rsync
+      - software-properties-common
       - vim
       - wget
 
@@ -39,21 +42,6 @@
       - tasksel
       - tasksel-data
       - vim-tiny
-
-- name: Add Debian Stretch "backport" repository
-  apt_repository:
-    repo: deb http://ftp.fr.debian.org/debian stretch-backports main
-    state: present
-
-- name: Install Certbot from "squeeze-backport"
-  apt:
-    default_release: stretch-backports
-    name: "{{ packages }}"
-    update_cache: yes
-  vars:
-    packages:
-      - certbot
-      - python3-certbot-nginx
 
 - name: Upgrade all packages to the latest version
   apt:

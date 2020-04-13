@@ -1,8 +1,41 @@
 ---
 - set_fact: website_url="ttrss.{{ base_url }}"
+- set_fact: ttrss_project_dir="/home/{{ host_remote_user }}/ttrss-docker"
 
-- import_tasks: ttrss-install.yml
-  tags: ['ttrss-install']
+- name: Clone Tiny Tiny RSS repository
+  git:
+    dest: "{{ ttrss_project_dir }}"
+    repo: https://git.tt-rss.org/fox/ttrss-docker-compose.git
+    accept_hostkey: yes
+    force: yes
+  become: false
 
-- import_tasks: ttrss-config.yml
-  tags: ['ttrss-config']
+- name: Generate ".env" file
+  template:
+    src: dotenv.j2
+    dest: "{{ ttrss_project_dir }}/.env"
+
+- name: Tear down existing services
+  docker_compose:
+    project_src: "{{ ttrss_project_dir }}"
+    state: absent
+
+- name: Up Tiny Tiny RSS services
+  docker_compose:
+    project_src: "{{ ttrss_project_dir }}"
+    state: present
+    build: yes
+    pull: yes
+
+- name: Configure TTRSS nginx server
+  template:
+    src: nginx_server.j2
+    dest: "/etc/nginx/sites-available/{{ website_url }}"
+  notify: Restart nginx
+
+- name: Enable TTRSS nginx server
+  file:
+    src: "/etc/nginx/sites-available/{{ website_url }}"
+    dest: "/etc/nginx/sites-enabled/{{ website_url }}"
+    state: link
+  notify: Restart nginx
