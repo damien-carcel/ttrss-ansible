@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Those playbooks and roles are to be used only with Debian 10 (buster).
+This playbook and its roles are to be used only on a server with Debian 10 "Buster".
 
 One must ensure the following packages are installed on the remote machine, or Ansible will not work:
 - apt-utils
@@ -12,17 +12,12 @@ One must ensure the following packages are installed on the remote machine, or A
 
 ## Deploy
 
-From your machine:
+First copy the configuration example:
 ```bash
-$ ansible-playbook -i inventories/provider/ttrss tiny-tiny-rss.yml -t debian
+$ cp inventories/ttrss.dist inventories/<provider name>/ttrss
 ```
 
-Then on the server:
-```bash
-$ sudo certbot certonly --manual -d example.com -d *.example.com --agree-tos --no-bootstrap --manual-public-ip-logging-ok --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory --email you@email.com
-```
-
-Finally from your machine again:
+Complete the configuration with needed values, then deploy the Ansible playbook:
 ```bash
 $ ansible-playbook -i inventories/provider/ttrss tiny-tiny-rss.yml
 ```

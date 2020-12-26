@@ -1,6 +1,6 @@
 ---
-- name: Restart nginx
+- name: Restart caddy
   service:
-    name: nginx
+    name: caddy
     state: restarted
   become: true

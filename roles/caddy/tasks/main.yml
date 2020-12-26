@@ -1,0 +1,20 @@
+---
+- name: Add Caddy official repository
+  apt_repository:
+    repo: deb [trusted=yes] https://apt.fury.io/caddy/ /
+    state: present
+
+- name: Install Caddy
+  apt:
+    name: caddy
+
+- name: Enable Caddy
+  service:
+    name: caddy
+    enabled: yes
+
+- name: Configure Caddy
+  template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+  notify: Restart caddy
