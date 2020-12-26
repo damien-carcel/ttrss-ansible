@@ -1,0 +1,11 @@
+{{ base_url }} {
+    redir https://{{ redirect_to }} permanent
+}
+
+www.{{ base_url }} {
+    redir https://{{ redirect_to }} permanent
+}
+
+ttrss.{{ base_url }} {
+    reverse_proxy localhost:8280
+}
