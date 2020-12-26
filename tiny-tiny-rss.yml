@@ -5,5 +5,5 @@
   roles:
     - { role: debian, become: true, tags: ['debian'] }
     - { role: docker, become: true, tags: ['docker'] }
-    - { role: ttrss, become: true, tags: ['ttrss'] }
+    - { role: ttrss, become: false, tags: ['ttrss'] }
     - { role: caddy, become: true, tags: ['caddy'] }
