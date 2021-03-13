@@ -1,11 +1,9 @@
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD={{ postgresql_password }}
+TTRSS_DB_USER=postgres
+TTRSS_DB_NAME=postgres
+TTRSS_DB_PASS={{ postgresql_password }}
 
-OWNER_UID=1000
-OWNER_GID=1000
-
-HTTP_HOST=localhost
 HTTP_PORT=127.0.0.1:8280
 
-SELF_URL_PATH=https://ttrss.{{ base_url }}/tt-rss
+TTRSS_SELF_URL_PATH=https://ttrss.{{ base_url }}/tt-rss
 
+TTRSS_SESSION_COOKIE_LIFETIME=86400

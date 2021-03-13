@@ -8,20 +8,15 @@
     accept_hostkey: yes
     force: yes
 
-- name: Tear down existing services
-  docker_compose:
-    project_src: "{{ ttrss_project_dir }}"
-    state: absent
-
 - name: Generate ".env" file
   template:
     src: dotenv.j2
     dest: "{{ ttrss_project_dir }}/.env"
 
-- name: Increase the cookie lifetime to one month
-  shell:
-    cmd: docker-compose run --rm app sed -i -e "s/define('SESSION_COOKIE_LIFETIME', 86400);/define('SESSION_COOKIE_LIFETIME', 86400*30);/g" /var/www/html/tt-rss/config.php
-    chdir: "{{ ttrss_project_dir }}"
+- name: Tear down existing services
+  docker_compose:
+    project_src: "{{ ttrss_project_dir }}"
+    state: absent
 
 - name: Up Tiny Tiny RSS services
   docker_compose:
