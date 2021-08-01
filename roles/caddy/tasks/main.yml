@@ -14,7 +14,15 @@
     enabled: yes
 
 - name: Configure Caddy
+  copy:
+    src: Caddyfile
+    dest: /etc/caddy/Caddyfile
+    mode: 0644
+    owner: root
+  notify: Restart caddy
+
+- name: Configure Caddy
   template:
     src: Caddyfile.j2
-    dest: /etc/caddy/Caddyfile
+    dest: /etc/caddy/ttrss.caddy
   notify: Restart caddy
